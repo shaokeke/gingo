@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/songcser/gingo/config"
 	"github.com/songcser/gingo/internal/app"
+	"github.com/songcser/gingo/internal/user"
 	"github.com/songcser/gingo/pkg/admin"
 )
 
@@ -13,4 +14,5 @@ func Admin(r *gin.Engine) {
 	}
 	admin.Init(r, nil)
 	app.Admin()
+	user.Admin()
 }

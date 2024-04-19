@@ -1,5 +1,5 @@
 domain: 'localhost'
-
+dbType: 'pgsql'
 admin:
   enable: true
   auth: true
@@ -23,6 +23,21 @@ mysql:
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: true
+  log-zap: false
+
+pgsql:
+  prefix: ""
+  port: "5433"
+  config: sslmode=disable TimeZone=Asia/Shanghai
+  db-name: xscope-plotting
+  username: postgres
+  password: s503377k
+  path: 127.0.0.1
+  engine: ""
+  log-mode: error
+  max-idle-conns: 10
+  max-open-conns: 100
+  singular: false
   log-zap: false
 
 zap: # 日志配置

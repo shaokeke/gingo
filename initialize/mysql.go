@@ -1,9 +1,11 @@
 package initialize
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/songcser/gingo/config"
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
@@ -103,4 +105,55 @@ func GormMysql() *gorm.DB {
 		sqlDB.SetMaxOpenConns(m.MaxOpenConns)
 		return db
 	}
+}
+func GormPgSql() *gorm.DB {
+	p := config.GVA_CONFIG.Pgsql
+	if p.Dbname == "" {
+		return nil
+	}
+	pgsqlConfig := postgres.Config{
+		DSN:                  p.Dsn(), // DSN data source name
+		PreferSimpleProtocol: false,
+	}
+	// initDatabase(p.Dbname)
+	if db, err := gorm.Open(postgres.New(pgsqlConfig), orm.Config(p.Prefix, p.Singular)); err != nil {
+		return nil
+	} else {
+		// 打开postgres扩展
+		db.Exec("CREATE EXTENSION IF NOT EXISTS \"postgis\";")
+		sqlDB, _ := db.DB()
+		sqlDB.SetMaxIdleConns(p.MaxIdleConns)
+		sqlDB.SetMaxOpenConns(p.MaxOpenConns)
+		return db
+	}
+}
+func initDatabase(name string) {
+	dsn := PgDsnTemplate()
+	createSql := fmt.Sprintf("CREATE DATABASE %s;", name)
+
+	// 创建数据库
+	if err := createDatabase(dsn, "pgx", createSql); err != nil {
+		fmt.Println("createDatabase", err)
+	}
+}
+func createDatabase(dsn string, driver string, createSql string) error {
+	db, err := sql.Open(driver, dsn)
+	if err != nil {
+		return err
+	}
+	defer func(db *sql.DB) {
+		err = db.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(db)
+	if err = db.Ping(); err != nil {
+		return err
+	}
+	_, err = db.Exec(createSql)
+	return err
+}
+func PgDsnTemplate() string {
+	p := config.GVA_CONFIG.Pgsql
+	return "host=" + p.Path + " user=" + p.Username + " password=" + p.Password + " port=" + p.Port + " dbname=" + "postgres" + " " + "sslmode=disable TimeZone=Asia/Shanghai"
 }

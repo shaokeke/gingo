@@ -13,6 +13,7 @@ type Configuration struct {
 	DbType string         `mapstructure:"dbType" json:"dbType" yaml:"dbType"`
 	Admin  autoload.Admin `mapstructure:"admin" json:"admin" yaml:"admin"`
 	Mysql  autoload.Mysql `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
+	Pgsql  autoload.Pgsql `mapstructure:"pgsql" json:"pgsql" yaml:"pgsql"`
 	Zap    autoload.Zap   `mapstructure:"zap" json:"zap" yaml:"zap"`
 	JWT    autoload.JWT   `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
 }
