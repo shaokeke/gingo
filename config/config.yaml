@@ -1,5 +1,6 @@
-domain: 'localhost'
+domain: '192.168.3.100'
 dbType: 'pgsql'
+debug: true
 admin:
   enable: true
   auth: true
@@ -29,10 +30,10 @@ pgsql:
   prefix: ""
   port: "5433"
   config: sslmode=disable TimeZone=Asia/Shanghai
-  db-name: xscope-plotting
+  db-name: gingo
   username: postgres
   password: s503377k
-  path: 127.0.0.1
+  path: 192.168.3.28
   engine: ""
   log-mode: error
   max-idle-conns: 10

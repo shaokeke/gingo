@@ -11,6 +11,7 @@ import (
 type Configuration struct {
 	Domain string         `mapstructure:"domain" json:"domain" yaml:"domain"`
 	DbType string         `mapstructure:"dbType" json:"dbType" yaml:"dbType"`
+	Debug  bool           `mapstructure:"debug" json:"debug" yaml:"debug"`
 	Admin  autoload.Admin `mapstructure:"admin" json:"admin" yaml:"admin"`
 	Mysql  autoload.Mysql `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	Pgsql  autoload.Pgsql `mapstructure:"pgsql" json:"pgsql" yaml:"pgsql"`
