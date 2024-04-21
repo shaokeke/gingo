@@ -21,12 +21,13 @@ func Routers() *gin.Engine {
 		config.GVA_LOG.Error(err.Error())
 		return nil
 	}
-
-	Router := gin.Default()
-	//gin.SetMode(gin.DebugMode)
-	if config.GVA_CONFIG.Debug {
+	// 在初始化 gin 路由器之前，您必须调用 SetMode 方法
+	if !config.GVA_CONFIG.Debug {
 		gin.SetMode(gin.ReleaseMode)
 	}
+	//gin.SetMode(gin.DebugMode)
+	Router := gin.Default()
+
 	Swagger(Router)
 	Router.Use(middleware.Recovery())
 	Router.Use(middleware.Logger())
