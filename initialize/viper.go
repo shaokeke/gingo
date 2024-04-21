@@ -3,11 +3,12 @@ package initialize
 import (
 	"flag"
 	"fmt"
+	"os"
+
 	"github.com/fsnotify/fsnotify"
 	"github.com/gin-gonic/gin"
 	"github.com/songcser/gingo/config"
 	"github.com/spf13/viper"
-	"os"
 )
 
 // Viper //
