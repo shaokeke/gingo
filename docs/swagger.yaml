@@ -1,0 +1,24 @@
+info:
+  contact: {}
+paths:
+  /health:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 健康检查
+      tags:
+      - 健康检查T
+  /user/hello:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: TestHello
+      tags:
+      - 用户管理
+swagger: "2.0"

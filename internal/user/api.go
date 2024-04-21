@@ -18,6 +18,11 @@ func NewApi() Api {
 	return Api{Api: baseApi, Service: s}
 }
 
+// Hello
+// @Tags 用户管理
+// @Summary TestHello
+// @Success 200 {string} welcome
+// @Router /user/hello [get]
 func (a Api) Hello(c *gin.Context) {
 	str := a.Service.Hello()
 	response.OkWithData(str, c)

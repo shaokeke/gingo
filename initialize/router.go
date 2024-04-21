@@ -11,10 +11,6 @@ import (
 	"github.com/songcser/gingo/utils"
 )
 
-func HealthCheck(g *gin.Context) {
-	g.JSON(http.StatusOK, "ok...")
-}
-
 func Routers() *gin.Engine {
 
 	if err := utils.Translator("zh"); err != nil {
@@ -37,8 +33,16 @@ func Routers() *gin.Engine {
 		HealthGroup.GET("/health", HealthCheck)
 	}
 
-	ApiGroup := Router.Group("api/v1")
+	ApiGroup := Router.Group(config.GVA_CONFIG.RouterPrefix)
 	app.InitRouter(ApiGroup)
 	user.InitRouter(ApiGroup)
 	return Router
+}
+
+// @Summary 健康检查
+// @Tags 健康检查T
+// @Success 200 {string} welcome
+// @Router /health [get]
+func HealthCheck(g *gin.Context) {
+	g.JSON(http.StatusOK, "ok...")
 }

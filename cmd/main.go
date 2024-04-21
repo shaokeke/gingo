@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/songcser/gingo/config"
 	"github.com/songcser/gingo/initialize"
 	"go.uber.org/zap"
-	"time"
 )
 
 type server interface {
